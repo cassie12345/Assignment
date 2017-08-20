@@ -24,7 +24,7 @@ def find(word, words, seen, target_word, word_path, short):
                         match_words.remove(w)
     if len(match_words) ==0:
         return False
-    match_words = sorted([(same(w, target_word), w) for w in match_words])
+    match_words = sorted([(same_letters(w, target_word), w) for w in match_words])
     if shortest:
         match_words.reverse()
     for (match, item) in match_words:
