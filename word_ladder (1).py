@@ -58,6 +58,19 @@ def check_word(text):
             continue
 
 
+while True:
+    try:
+        FileName = input('Enter dictionary name:')
+        FileName = FileName.strip()
+        file = open(FileName)
+        lines = file.readlines()
+        break
+    except:
+        print('Please enter a valid dictionary')
+
+dictionary = []
+
+
 
 fname = input("Enter dictionary name: ")
 file = open(fname)
