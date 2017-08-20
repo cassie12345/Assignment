@@ -1,11 +1,13 @@
 import re
-def same(item, target):
-  return len([c for (c, t) in zip(item, target) if c == t])
 
-def build(pattern, words, seen, list):
+
+def same_letters(item, target):
+  return len([i for (i, t) in zip(item, target) if i == t])
+
+def build(pattern, words, seen, match_words):
   return [word for word in words
                  if re.search(pattern, word) and word not in seen.keys() and
-                    word not in list]
+                    word not in match_words]
 
 def find(word, words, seen, target, path):
   list = []
