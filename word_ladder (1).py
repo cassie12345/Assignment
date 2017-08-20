@@ -40,6 +40,25 @@ def find(word, words, seen, target_word, word_path, short):
         word_path.pop()
 
 
+def check_word(text):
+    while True:
+        try:
+            output = input(text)
+            output = output.lower()
+            output - output.replace(' ', '')
+            if output.isaplpha():
+                if output in dictionary:
+                    return output
+                else:
+                    print('Please enter a valid word.')
+            else:
+                print('Please enter a valid word.')
+        except:
+            print('Please enter a valid word.')
+            continue
+
+
+
 fname = input("Enter dictionary name: ")
 file = open(fname)
 lines = file.readlines()
