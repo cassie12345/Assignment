@@ -2,31 +2,43 @@ import re
 
 
 def same_letters(item, target):
-  return len([i for (i, t) in zip(item, target) if i == t])
+    return len([i for (i, t) in zip(item, target) if i == t])
+
 
 def build(pattern, words, seen, match_words):
-  return [word for word in words
-                 if re.search(pattern, word) and word not in seen.keys() and
-                    word not in match_words]
+    return [word for word in words
+            if re.search(pattern, word) and word not in seen.keys() and
+            word not in match_words]
 
-def find(word, words, seen, target, path):
-  list = []
-  for i in range(len(word)):
-    list += build(word[:i] + "." + word[i + 1:], words, seen, list)
-  if len(list) == 0:
-    return False
-  list = sorted([(same(w, target), w) for w in list])
-  for (match, item) in list:
-    if match >= len(target) - 1:
-      if match == len(target) - 1:
-        path.append(item)
-      return True
-    seen[item] = True
-  for (match, item) in list:
-    path.append(item)
-    if find(item, words, seen, target, path):
-      return True
-    path.pop()
+def find(word, words, seen, target_word, word_path, short):
+    match_words = []
+    for i in range(len(word)):
+        match_words += build(word[:i] + "." + word[i + 1:], words, seen, match_words)
+    for w in match_words:
+        if w in exclude:
+            match_words.remove(w)
+        if short:
+            for l in rare:
+                if l not in target_word:
+                    if l in w:
+                        match_words.remove(w)
+    if len(match_words) ==0:
+        return False
+    match_words = sorted([(same(w, target_word), w) for w in match_words])
+    if shortest:
+        match_words.reverse()
+    for (match, item) in match_words:
+        if match >= len(target_word) - 1:
+            if match == len(target_word) - 1:
+                word_path.append(item)
+            return True
+        seen[item] = True
+    for (match, item) in match_words:
+        word_path.append(item)
+        if find(item, words, seen, target_word, shortest):
+            return True
+        word_path.pop()
+
 
 fname = input("Enter dictionary name: ")
 file = open(fname)
