@@ -69,6 +69,44 @@ while True:
         print('Please enter a valid dictionary')
 
 dictionary = []
+rare = ['j', 'q', 'x', 'z']
+
+
+for line in lines:
+    word = line.rstrip()
+    dictionary.append(word)
+
+
+while True:
+    start = check_word('Enter start word:')
+
+    while True:
+        target = check_word('Enter target word:')
+        if len(start) == len(target):
+            break
+        else:
+            print('Please eneter a word that is', len(start), 'letters long.')
+    while True:
+        try:
+            short_long = input('Do you want the shortest (s) or the longest (l) path?')
+            short_long = short_long.lower()
+            short_long = short_long.replace(' ', '')
+            if short_long.isaplha():
+                if short_long == 's' or short_long == 'shortest':
+                    shortest = True
+                    print('You have chosen the shortest path.')
+                    break
+                elif short_long == 'l' or short_long == 'longest':
+                    shortest = False
+                    print("You have chosen to take the longest path.")
+                    break
+                else:
+                    print("Please enter 's' for shortest path or 'l' for the longest path.")
+            else:
+                print("Please enter 's' for shortest path or 'l' for the longest path.")
+        except:
+            print("Please enter 's' for shortest path or 'l' for the longest path.")
+
 
 
 
