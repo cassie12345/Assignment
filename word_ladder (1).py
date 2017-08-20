@@ -107,6 +107,31 @@ while True:
         except:
             print("Please enter 's' for shortest path or 'l' for the longest path.")
 
+while True:
+    try:
+        error = 0
+        exclude = []
+        word = input("Enter words go be excluded separated by ',' or press enter/return to continue")
+        if len(word) < 1:
+            print('No words have been excluded.')
+            break
+        word = word.lower()
+        word = word.replace(' ', '')
+        word = word.strip().split(',')
+        for wrd in word:
+            if wrd == '':
+                continue
+            elif wrd in dictionary:
+                exclude.append(wrd)
+            elif wrd not in dictionary:
+                error += 1
+                print('Please check the word', wrd, 'is a valid word')
+        if error == 0:
+            print('Excluded words are:', ', '.join(exclude))
+            break
+    except:
+        print('Enter a valid word.')
+        continue
 
 
 
